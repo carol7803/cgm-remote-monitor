@@ -1,17 +1,65 @@
-# fly.toml app configuration file generated for caroljustino030589 on 2023-11-15T15:10:29-03:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
 
 app = "caroljustino030589"
-primary_region = "gru"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
 
-[build]
 
-[http_service]
-  internal_port = 3000
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
+[env]
+API_SECRET="xcjustino0305x"
+DISPLAY_UNITS="mg/dl"
+MONGODB_URI="mongodb+srv://caroljustino030589:xcjustino0305x@cluster0.znnokdz.mongodb.net/AAPSDB?retryWrites=true&w=majority"
+BRIDGE_USER_NAME="caroljustino030589"
+BRIDGE_PASSWORD="xcjustino0305x"
+BRIDGE_SERVER="US"
+ENABLE="careportal basal dbsize rawbg iob maker cob bwp cage iage sage boluscalc pushover treatmentnotify loop pump profile food openaps bage alexa override speech cors"
+CUSTOM_TITLE="Carol Justino"
+SHOW_PLUGINS="careportal boluscalc food rawbg iob cob bwp cage sage iage bage treatmentnotify basal bridge mmconnect pump openaps loop cors alexa speech xdrip-js"
+ALARM_TYPES="simple"
+BG_HIGH=220
+BG_LOW=70
+BG_TARGET_BOTTOM=80
+BG_TARGET_TOP=180
+ALARM_URGENT_HIGH="on"
+ALARM_URGENT_LOW="on"
+ALARM_HIGH="on"
+ALARM_LOW="on"
+ALARM_TIMEAGO_URGENT="on"
+ALARM_TIMEAGO_WARN="on"
+ALARM_TIMEAGO_URGENT_MINS=30
+ALARM_TIMEAGO_WARN_MINS=15
+NIGHT_MODE="off"
+THEME="colors"
+TIME_FORMAT=24
+BOLUS_RENDER_OVER=1
+
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 1337
   processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
